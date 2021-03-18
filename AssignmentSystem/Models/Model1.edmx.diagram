@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f9f886cf0579405fb972c87066aa319a" Name="Diagram1">
+        <EntityTypeShape EntityType="AssignmentManagementSystemModel.sysdiagram" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssignmentManagementSystemModel.tblActivity" Width="1.5" PointX="11.25" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssignmentManagementSystemModel.tblAdmin" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssignmentManagementSystemModel.tblAssignmentRoutine" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssignmentManagementSystemModel.tblFaculty" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssignmentManagementSystemModel.tblLog" Width="1.5" PointX="13.5" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssignmentManagementSystemModel.tblSection" Width="1.5" PointX="3.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssignmentManagementSystemModel.tblSemester" Width="1.5" PointX="3.75" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssignmentManagementSystemModel.tblStudent" Width="1.5" PointX="6" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssignmentManagementSystemModel.tblStudentRoutineRelation" Width="1.5" PointX="8.25" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssignmentManagementSystemModel.tblSubmittedAssignment" Width="1.5" PointX="11.25" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssignmentManagementSystemModel.tblTeacher" Width="1.5" PointX="0.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssignmentManagementSystemModel.tblYearBatch" Width="1.5" PointX="3.75" PointY="12.5" IsExpanded="true" />
+        <AssociationConnector Association="AssignmentManagementSystemModel.FK_tblLog_tblActivity" ManuallyRouted="false" />
+        <AssociationConnector Association="AssignmentManagementSystemModel.FK_tblAssignmentRoutine_tblFaculty" ManuallyRouted="false" />
+        <AssociationConnector Association="AssignmentManagementSystemModel.FK_tblAssignmentRoutine_tblSection" ManuallyRouted="false" />
+        <AssociationConnector Association="AssignmentManagementSystemModel.FK_tblAssignmentRoutine_tblSemester" ManuallyRouted="false" />
+        <AssociationConnector Association="AssignmentManagementSystemModel.FK_tblAssignmentRoutine_tblTeacher" ManuallyRouted="false" />
+        <AssociationConnector Association="AssignmentManagementSystemModel.FK_tblAssignmentRoutine_tblYearBatch" ManuallyRouted="false" />
+        <AssociationConnector Association="AssignmentManagementSystemModel.FK_tblStudentRoutineRelation_tblAssignmentRoutine" ManuallyRouted="false" />
+        <AssociationConnector Association="AssignmentManagementSystemModel.FK_tblSubmittedAssignment_tblAssignmentRoutine" ManuallyRouted="false" />
+        <AssociationConnector Association="AssignmentManagementSystemModel.FK_tblStudent_tblFaculty" ManuallyRouted="false" />
+        <AssociationConnector Association="AssignmentManagementSystemModel.FK_tblLog_tblSubmittedAssignment" ManuallyRouted="false" />
+        <AssociationConnector Association="AssignmentManagementSystemModel.FK_tblStudent_tblSection" ManuallyRouted="false" />
+        <AssociationConnector Association="AssignmentManagementSystemModel.FK_tblStudent_tblSemester" ManuallyRouted="false" />
+        <AssociationConnector Association="AssignmentManagementSystemModel.FK_tblStudent_tblYearBatch" ManuallyRouted="false" />
+        <AssociationConnector Association="AssignmentManagementSystemModel.FK_tblStudentRoutineRelation_tblStudent" ManuallyRouted="false" />
+        <AssociationConnector Association="AssignmentManagementSystemModel.FK_tblSubmittedAssignment_tblStudent" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="AssignmentManagementSystemModel.tblfile" Width="1.5" PointX="8.375" PointY="8.75" />
+        <EntityTypeShape EntityType="AssignmentManagementSystemModel.tblMainLog" Width="1.5" PointX="0.75" PointY="10.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

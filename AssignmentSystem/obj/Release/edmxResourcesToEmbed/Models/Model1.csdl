@@ -1,0 +1,414 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AssignmentManagementSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="tblAdmin">
+    <Key>
+      <PropertyRef Name="Admin_Id" />
+    </Key>
+    <Property Name="Admin_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Role" Type="Int32" />
+  </EntityType>
+  <EntityType Name="tblAssignmentRoutine">
+    <Key>
+      <PropertyRef Name="Routine_Id" />
+    </Key>
+    <Property Name="Routine_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Assignment_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Teacher_Id" Type="Int32" />
+    <Property Name="Assignment_Release_Date" Type="DateTime" Precision="0" />
+    <Property Name="Deadline" Type="DateTime" Precision="0" />
+    <Property Name="Section_Id" Type="Int32" />
+    <Property Name="Faculty_Id" Type="Int32" />
+    <Property Name="Semester_Id" Type="Int32" />
+    <Property Name="YearBatchId" Type="Int32" />
+    <NavigationProperty Name="tblFaculty" Relationship="Self.FK_tblAssignmentRoutine_tblFaculty" FromRole="tblAssignmentRoutine" ToRole="tblFaculty" />
+    <NavigationProperty Name="tblSection" Relationship="Self.FK_tblAssignmentRoutine_tblSection" FromRole="tblAssignmentRoutine" ToRole="tblSection" />
+    <NavigationProperty Name="tblSemester" Relationship="Self.FK_tblAssignmentRoutine_tblSemester" FromRole="tblAssignmentRoutine" ToRole="tblSemester" />
+    <NavigationProperty Name="tblTeacher" Relationship="Self.FK_tblAssignmentRoutine_tblTeacher" FromRole="tblAssignmentRoutine" ToRole="tblTeacher" />
+    <NavigationProperty Name="tblYearBatch" Relationship="Self.FK_tblAssignmentRoutine_tblYearBatch" FromRole="tblAssignmentRoutine" ToRole="tblYearBatch" />
+    <NavigationProperty Name="tblSubmittedAssignments" Relationship="Self.FK_tblSubmittedAssignment_tblAssignmentRoutine" FromRole="tblAssignmentRoutine" ToRole="tblSubmittedAssignment" />
+    <NavigationProperty Name="tblStudentRoutineRelations" Relationship="AssignmentManagementSystemModel.FK_tblStudentRoutineRelation_tblAssignmentRoutine" FromRole="tblAssignmentRoutine" ToRole="tblStudentRoutineRelation" />
+  </EntityType>
+  <EntityType Name="tblFaculty">
+    <Key>
+      <PropertyRef Name="Faculty_Id" />
+    </Key>
+    <Property Name="Faculty_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Faculty_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tblAssignmentRoutines" Relationship="Self.FK_tblAssignmentRoutine_tblFaculty" FromRole="tblFaculty" ToRole="tblAssignmentRoutine" />
+    <NavigationProperty Name="tblStudents" Relationship="Self.FK_tblStudent_tblFaculty" FromRole="tblFaculty" ToRole="tblStudent" />
+  </EntityType>
+  <EntityType Name="tblSection">
+    <Key>
+      <PropertyRef Name="Section_Id" />
+    </Key>
+    <Property Name="Section_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Sec_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tblAssignmentRoutines" Relationship="Self.FK_tblAssignmentRoutine_tblSection" FromRole="tblSection" ToRole="tblAssignmentRoutine" />
+    <NavigationProperty Name="tblStudents" Relationship="Self.FK_tblStudent_tblSection" FromRole="tblSection" ToRole="tblStudent" />
+  </EntityType>
+  <EntityType Name="tblSemester">
+    <Key>
+      <PropertyRef Name="Semester_Id" />
+    </Key>
+    <Property Name="Semester_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Semester_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tblAssignmentRoutines" Relationship="Self.FK_tblAssignmentRoutine_tblSemester" FromRole="tblSemester" ToRole="tblAssignmentRoutine" />
+    <NavigationProperty Name="tblStudents" Relationship="Self.FK_tblStudent_tblSemester" FromRole="tblSemester" ToRole="tblStudent" />
+  </EntityType>
+  <EntityType Name="tblStudent">
+    <Key>
+      <PropertyRef Name="Student_Id" />
+    </Key>
+    <Property Name="Student_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="YearBatchId" Type="Int32" />
+    <Property Name="Faculty_Id" Type="Int32" />
+    <Property Name="Section_Id" Type="Int32" />
+    <Property Name="Semester_Id" Type="Int32" />
+    <NavigationProperty Name="tblFaculty" Relationship="Self.FK_tblStudent_tblFaculty" FromRole="tblStudent" ToRole="tblFaculty" />
+    <NavigationProperty Name="tblSection" Relationship="Self.FK_tblStudent_tblSection" FromRole="tblStudent" ToRole="tblSection" />
+    <NavigationProperty Name="tblSemester" Relationship="Self.FK_tblStudent_tblSemester" FromRole="tblStudent" ToRole="tblSemester" />
+    <NavigationProperty Name="tblYearBatch" Relationship="Self.FK_tblStudent_tblYearBatch" FromRole="tblStudent" ToRole="tblYearBatch" />
+    <NavigationProperty Name="tblSubmittedAssignments" Relationship="Self.FK_tblSubmittedAssignment_tblStudent" FromRole="tblStudent" ToRole="tblSubmittedAssignment" />
+    <NavigationProperty Name="tblStudentRoutineRelations" Relationship="AssignmentManagementSystemModel.FK_tblStudentRoutineRelation_tblStudent" FromRole="tblStudent" ToRole="tblStudentRoutineRelation" />
+  </EntityType>
+  <EntityType Name="tblSubmittedAssignment">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Routine_Id" Type="Int32" />
+    <Property Name="Student_Id" Type="Int32" />
+    <Property Name="Submitted_Date" Type="DateTime" Precision="0" />
+    <Property Name="Checked_Status" Type="Int32" />
+    <Property Name="Feedback_Status" Type="Int32" />
+    <Property Name="Marking" Type="Int32" />
+    <Property Name="Assignmnet_Location" Type="Int32" />
+    <NavigationProperty Name="tblAssignmentRoutine" Relationship="Self.FK_tblSubmittedAssignment_tblAssignmentRoutine" FromRole="tblSubmittedAssignment" ToRole="tblAssignmentRoutine" />
+    <NavigationProperty Name="tblStudent" Relationship="Self.FK_tblSubmittedAssignment_tblStudent" FromRole="tblSubmittedAssignment" ToRole="tblStudent" />
+    <NavigationProperty Name="tblLogs" Relationship="AssignmentManagementSystemModel.FK_tblLog_tblSubmittedAssignment" FromRole="tblSubmittedAssignment" ToRole="tblLog" />
+  </EntityType>
+  <EntityType Name="tblTeacher">
+    <Key>
+      <PropertyRef Name="Teacher_Id" />
+    </Key>
+    <Property Name="Teacher_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tblAssignmentRoutines" Relationship="Self.FK_tblAssignmentRoutine_tblTeacher" FromRole="tblTeacher" ToRole="tblAssignmentRoutine" />
+  </EntityType>
+  <EntityType Name="tblYearBatch">
+    <Key>
+      <PropertyRef Name="YearBatchId" />
+    </Key>
+    <Property Name="YearBatchId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Year_Batch" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tblAssignmentRoutines" Relationship="Self.FK_tblAssignmentRoutine_tblYearBatch" FromRole="tblYearBatch" ToRole="tblAssignmentRoutine" />
+    <NavigationProperty Name="tblStudents" Relationship="Self.FK_tblStudent_tblYearBatch" FromRole="tblYearBatch" ToRole="tblStudent" />
+  </EntityType>
+  <Association Name="FK_tblAssignmentRoutine_tblFaculty">
+    <End Role="tblFaculty" Type="Self.tblFaculty" Multiplicity="0..1" />
+    <End Role="tblAssignmentRoutine" Type="Self.tblAssignmentRoutine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblFaculty">
+        <PropertyRef Name="Faculty_Id" />
+      </Principal>
+      <Dependent Role="tblAssignmentRoutine">
+        <PropertyRef Name="Faculty_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblAssignmentRoutine_tblSection">
+    <End Role="tblSection" Type="Self.tblSection" Multiplicity="0..1" />
+    <End Role="tblAssignmentRoutine" Type="Self.tblAssignmentRoutine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblSection">
+        <PropertyRef Name="Section_Id" />
+      </Principal>
+      <Dependent Role="tblAssignmentRoutine">
+        <PropertyRef Name="Section_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblAssignmentRoutine_tblSemester">
+    <End Role="tblSemester" Type="Self.tblSemester" Multiplicity="0..1" />
+    <End Role="tblAssignmentRoutine" Type="Self.tblAssignmentRoutine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblSemester">
+        <PropertyRef Name="Semester_Id" />
+      </Principal>
+      <Dependent Role="tblAssignmentRoutine">
+        <PropertyRef Name="Semester_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblAssignmentRoutine_tblTeacher">
+    <End Role="tblTeacher" Type="Self.tblTeacher" Multiplicity="0..1" />
+    <End Role="tblAssignmentRoutine" Type="Self.tblAssignmentRoutine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblTeacher">
+        <PropertyRef Name="Teacher_Id" />
+      </Principal>
+      <Dependent Role="tblAssignmentRoutine">
+        <PropertyRef Name="Teacher_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblAssignmentRoutine_tblYearBatch">
+    <End Role="tblYearBatch" Type="Self.tblYearBatch" Multiplicity="0..1" />
+    <End Role="tblAssignmentRoutine" Type="Self.tblAssignmentRoutine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblYearBatch">
+        <PropertyRef Name="YearBatchId" />
+      </Principal>
+      <Dependent Role="tblAssignmentRoutine">
+        <PropertyRef Name="YearBatchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblSubmittedAssignment_tblAssignmentRoutine">
+    <End Role="tblAssignmentRoutine" Type="Self.tblAssignmentRoutine" Multiplicity="0..1" />
+    <End Role="tblSubmittedAssignment" Type="Self.tblSubmittedAssignment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblAssignmentRoutine">
+        <PropertyRef Name="Routine_Id" />
+      </Principal>
+      <Dependent Role="tblSubmittedAssignment">
+        <PropertyRef Name="Routine_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblStudent_tblFaculty">
+    <End Role="tblFaculty" Type="Self.tblFaculty" Multiplicity="0..1" />
+    <End Role="tblStudent" Type="Self.tblStudent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblFaculty">
+        <PropertyRef Name="Faculty_Id" />
+      </Principal>
+      <Dependent Role="tblStudent">
+        <PropertyRef Name="Faculty_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblStudent_tblSection">
+    <End Role="tblSection" Type="Self.tblSection" Multiplicity="0..1" />
+    <End Role="tblStudent" Type="Self.tblStudent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblSection">
+        <PropertyRef Name="Section_Id" />
+      </Principal>
+      <Dependent Role="tblStudent">
+        <PropertyRef Name="Section_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblStudent_tblSemester">
+    <End Role="tblSemester" Type="Self.tblSemester" Multiplicity="0..1" />
+    <End Role="tblStudent" Type="Self.tblStudent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblSemester">
+        <PropertyRef Name="Semester_Id" />
+      </Principal>
+      <Dependent Role="tblStudent">
+        <PropertyRef Name="Semester_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblStudent_tblYearBatch">
+    <End Role="tblYearBatch" Type="Self.tblYearBatch" Multiplicity="0..1" />
+    <End Role="tblStudent" Type="Self.tblStudent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblYearBatch">
+        <PropertyRef Name="YearBatchId" />
+      </Principal>
+      <Dependent Role="tblStudent">
+        <PropertyRef Name="YearBatchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblSubmittedAssignment_tblStudent">
+    <End Role="tblStudent" Type="Self.tblStudent" Multiplicity="0..1" />
+    <End Role="tblSubmittedAssignment" Type="Self.tblSubmittedAssignment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblStudent">
+        <PropertyRef Name="Student_Id" />
+      </Principal>
+      <Dependent Role="tblSubmittedAssignment">
+        <PropertyRef Name="Student_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="AssignmentManagementSystemEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="tblAdmins" EntityType="Self.tblAdmin" />
+    <EntitySet Name="tblAssignmentRoutines" EntityType="Self.tblAssignmentRoutine" />
+    <EntitySet Name="tblFaculties" EntityType="Self.tblFaculty" />
+    <EntitySet Name="tblSections" EntityType="Self.tblSection" />
+    <EntitySet Name="tblSemesters" EntityType="Self.tblSemester" />
+    <EntitySet Name="tblStudents" EntityType="Self.tblStudent" />
+    <EntitySet Name="tblSubmittedAssignments" EntityType="Self.tblSubmittedAssignment" />
+    <EntitySet Name="tblTeachers" EntityType="Self.tblTeacher" />
+    <EntitySet Name="tblYearBatches" EntityType="Self.tblYearBatch" />
+    <AssociationSet Name="FK_tblAssignmentRoutine_tblFaculty" Association="Self.FK_tblAssignmentRoutine_tblFaculty">
+      <End Role="tblFaculty" EntitySet="tblFaculties" />
+      <End Role="tblAssignmentRoutine" EntitySet="tblAssignmentRoutines" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblAssignmentRoutine_tblSection" Association="Self.FK_tblAssignmentRoutine_tblSection">
+      <End Role="tblSection" EntitySet="tblSections" />
+      <End Role="tblAssignmentRoutine" EntitySet="tblAssignmentRoutines" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblAssignmentRoutine_tblSemester" Association="Self.FK_tblAssignmentRoutine_tblSemester">
+      <End Role="tblSemester" EntitySet="tblSemesters" />
+      <End Role="tblAssignmentRoutine" EntitySet="tblAssignmentRoutines" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblAssignmentRoutine_tblTeacher" Association="Self.FK_tblAssignmentRoutine_tblTeacher">
+      <End Role="tblTeacher" EntitySet="tblTeachers" />
+      <End Role="tblAssignmentRoutine" EntitySet="tblAssignmentRoutines" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblAssignmentRoutine_tblYearBatch" Association="Self.FK_tblAssignmentRoutine_tblYearBatch">
+      <End Role="tblYearBatch" EntitySet="tblYearBatches" />
+      <End Role="tblAssignmentRoutine" EntitySet="tblAssignmentRoutines" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblSubmittedAssignment_tblAssignmentRoutine" Association="Self.FK_tblSubmittedAssignment_tblAssignmentRoutine">
+      <End Role="tblAssignmentRoutine" EntitySet="tblAssignmentRoutines" />
+      <End Role="tblSubmittedAssignment" EntitySet="tblSubmittedAssignments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblStudent_tblFaculty" Association="Self.FK_tblStudent_tblFaculty">
+      <End Role="tblFaculty" EntitySet="tblFaculties" />
+      <End Role="tblStudent" EntitySet="tblStudents" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblStudent_tblSection" Association="Self.FK_tblStudent_tblSection">
+      <End Role="tblSection" EntitySet="tblSections" />
+      <End Role="tblStudent" EntitySet="tblStudents" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblStudent_tblSemester" Association="Self.FK_tblStudent_tblSemester">
+      <End Role="tblSemester" EntitySet="tblSemesters" />
+      <End Role="tblStudent" EntitySet="tblStudents" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblStudent_tblYearBatch" Association="Self.FK_tblStudent_tblYearBatch">
+      <End Role="tblYearBatch" EntitySet="tblYearBatches" />
+      <End Role="tblStudent" EntitySet="tblStudents" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblSubmittedAssignment_tblStudent" Association="Self.FK_tblSubmittedAssignment_tblStudent">
+      <End Role="tblStudent" EntitySet="tblStudents" />
+      <End Role="tblSubmittedAssignment" EntitySet="tblSubmittedAssignments" />
+    </AssociationSet>
+    <EntitySet Name="tblActivities" EntityType="AssignmentManagementSystemModel.tblActivity" />
+    <EntitySet Name="tblLogs" EntityType="AssignmentManagementSystemModel.tblLog" />
+    <AssociationSet Name="FK_tblLog_tblActivity" Association="AssignmentManagementSystemModel.FK_tblLog_tblActivity">
+      <End Role="tblActivity" EntitySet="tblActivities" />
+      <End Role="tblLog" EntitySet="tblLogs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblLog_tblSubmittedAssignment" Association="AssignmentManagementSystemModel.FK_tblLog_tblSubmittedAssignment">
+      <End Role="tblSubmittedAssignment" EntitySet="tblSubmittedAssignments" />
+      <End Role="tblLog" EntitySet="tblLogs" />
+    </AssociationSet>
+    <EntitySet Name="tblStudentRoutineRelations" EntityType="AssignmentManagementSystemModel.tblStudentRoutineRelation" />
+    <AssociationSet Name="FK_tblStudentRoutineRelation_tblAssignmentRoutine" Association="AssignmentManagementSystemModel.FK_tblStudentRoutineRelation_tblAssignmentRoutine">
+      <End Role="tblAssignmentRoutine" EntitySet="tblAssignmentRoutines" />
+      <End Role="tblStudentRoutineRelation" EntitySet="tblStudentRoutineRelations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblStudentRoutineRelation_tblStudent" Association="AssignmentManagementSystemModel.FK_tblStudentRoutineRelation_tblStudent">
+      <End Role="tblStudent" EntitySet="tblStudents" />
+      <End Role="tblStudentRoutineRelation" EntitySet="tblStudentRoutineRelations" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="tblActivity">
+    <Key>
+      <PropertyRef Name="ActivityId" />
+    </Key>
+    <Property Name="ActivityId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Description" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tblLogs" Relationship="AssignmentManagementSystemModel.FK_tblLog_tblActivity" FromRole="tblActivity" ToRole="tblLog" />
+  </EntityType>
+  <EntityType Name="tblLog">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Date" Type="DateTime" Precision="0" />
+    <Property Name="ActivityId" Type="Int32" />
+    <Property Name="SubmittedAssignmentId" Type="Int32" />
+    <NavigationProperty Name="tblActivity" Relationship="AssignmentManagementSystemModel.FK_tblLog_tblActivity" FromRole="tblLog" ToRole="tblActivity" />
+    <NavigationProperty Name="tblSubmittedAssignment" Relationship="AssignmentManagementSystemModel.FK_tblLog_tblSubmittedAssignment" FromRole="tblLog" ToRole="tblSubmittedAssignment" />
+  </EntityType>
+  <Association Name="FK_tblLog_tblActivity">
+    <End Type="AssignmentManagementSystemModel.tblActivity" Role="tblActivity" Multiplicity="0..1" />
+    <End Type="AssignmentManagementSystemModel.tblLog" Role="tblLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblActivity">
+        <PropertyRef Name="ActivityId" />
+      </Principal>
+      <Dependent Role="tblLog">
+        <PropertyRef Name="ActivityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblLog_tblSubmittedAssignment">
+    <End Type="AssignmentManagementSystemModel.tblSubmittedAssignment" Role="tblSubmittedAssignment" Multiplicity="0..1" />
+    <End Type="AssignmentManagementSystemModel.tblLog" Role="tblLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblSubmittedAssignment">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblLog">
+        <PropertyRef Name="SubmittedAssignmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="tblStudentRoutineRelation">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StudentId" Type="Int32" />
+    <Property Name="RoutineId" Type="Int32" />
+    <NavigationProperty Name="tblAssignmentRoutine" Relationship="AssignmentManagementSystemModel.FK_tblStudentRoutineRelation_tblAssignmentRoutine" FromRole="tblStudentRoutineRelation" ToRole="tblAssignmentRoutine" />
+    <NavigationProperty Name="tblStudent" Relationship="AssignmentManagementSystemModel.FK_tblStudentRoutineRelation_tblStudent" FromRole="tblStudentRoutineRelation" ToRole="tblStudent" />
+  </EntityType>
+  <Association Name="FK_tblStudentRoutineRelation_tblAssignmentRoutine">
+    <End Type="AssignmentManagementSystemModel.tblAssignmentRoutine" Role="tblAssignmentRoutine" Multiplicity="0..1" />
+    <End Type="AssignmentManagementSystemModel.tblStudentRoutineRelation" Role="tblStudentRoutineRelation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblAssignmentRoutine">
+        <PropertyRef Name="Routine_Id" />
+      </Principal>
+      <Dependent Role="tblStudentRoutineRelation">
+        <PropertyRef Name="RoutineId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblStudentRoutineRelation_tblStudent">
+    <End Type="AssignmentManagementSystemModel.tblStudent" Role="tblStudent" Multiplicity="0..1" />
+    <End Type="AssignmentManagementSystemModel.tblStudentRoutineRelation" Role="tblStudentRoutineRelation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblStudent">
+        <PropertyRef Name="Student_Id" />
+      </Principal>
+      <Dependent Role="tblStudentRoutineRelation">
+        <PropertyRef Name="StudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
